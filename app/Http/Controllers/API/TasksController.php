@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class TasksController extends Controller
@@ -30,13 +31,24 @@ class TasksController extends Controller
             'is_completed' => $request->is_completed ?? false
         ]);
 
-        return response()->json($todo,201);
+        return response()->json([
+            'message' => 'Task created successfully',
+            'task' => $todo
+        ], 201);
     }
     public function show($id)
     {
         $task = Task::findOrFail($id);
         return response()->json($task, 200);
     }
+
+    
+
+
+    
+
+            
+            
 
     public function update(Request $request, $id)
     {
@@ -47,7 +59,11 @@ class TasksController extends Controller
             'is_completed' => 'boolean'
         ]);
 
-        $task->update($request->all());
+        // $task->update($request->all());
+        $task->title = $request->title;
+        $task->description = $request->description;
+        $task->is_completed = $request->is_completed ?? false;
+        $task->save();
 
         return response()->json($task);
     }
