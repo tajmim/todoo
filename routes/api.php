@@ -18,8 +18,10 @@ use App\Http\Controllers\API\TasksController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('/', [TasksController::class, 'index']);
-Route::post('/create', [TasksController::class, 'store']);
-Route::get('/show/{id}', [TasksController::class, 'show']);
-Route::post('/update/{id}', [TasksController::class, 'update']);
-Route::delete('/delete/{id}', [TasksController::class, 'destroy']);
+// Route::get('/', [TasksController::class, 'index']);
+// Route::post('/create', [TasksController::class, 'store']);
+// Route::get('/show/{id}', [TasksController::class, 'show']);
+// Route::post('/update/{id}', [TasksController::class, 'update']);
+// Route::delete('/delete/{id}', [TasksController::class, 'destroy']);
+Route::resource('tasks', TasksController::class);
+

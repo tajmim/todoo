@@ -42,13 +42,9 @@ class TasksController extends Controller
         return response()->json($task, 200);
     }
 
-    
 
 
-    
 
-            
-            
 
     public function update(Request $request, $id)
     {
@@ -59,7 +55,7 @@ class TasksController extends Controller
             'is_completed' => 'boolean'
         ]);
 
-        // $task->update($request->all());
+        $task->update($request->all());
         $task->title = $request->title;
         $task->description = $request->description;
         $task->is_completed = $request->is_completed ?? false;
@@ -70,6 +66,8 @@ class TasksController extends Controller
     public function destroy($id)
     {
         Task::findOrFail($id)->delete();
-        return response()->json(null, 204);
+        return response()->json([
+            'message' => 'Task deleted successfully'
+        ]);
     }
 }
